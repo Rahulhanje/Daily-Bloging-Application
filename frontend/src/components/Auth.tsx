@@ -18,7 +18,9 @@ async function sendRequest(){
     
     try{const response=await axios.post(`${BACKEND_URl}/api/v1/user/${type==='Signup'?"signup":"signin"}`,postInputs);
     const jwt=response.data;
-    localStorage.setItem("token",jwt);
+    console.log(jwt);
+    console.log(jwt.jwt)
+    localStorage.setItem("token",jwt.jwt);
     navigate("/blog");
 }
     catch(e){
