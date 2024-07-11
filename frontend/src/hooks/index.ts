@@ -2,24 +2,69 @@ import { useEffect,useState } from "react"
 import axios from "axios"
 import { BACKEND_URl } from "../config";
 
-export const useBlogs=()=>{
+interface Author {
+    name: string;
+  }
+  
+  interface Blog {
+    id:string;
+    author: Author;
+    title: string;
+    content: string;
+    publishedDate: string;
+  }
+
+  export const useBlog=({id}:{id:string}) =>{
+    const [loading,setLoading]=useState(true);
+    const [blog,setBlog]=useState([]);
+ 
+    useEffect(()=>{
+         axios.get(`${BACKEND_URl}/api/v1/blog/${id}`,{
+             headers:{
+                  Authorization: `Bearer ${localStorage.getItem("token")}`
+             }
+         })
+         
+         .then(response=>{
+ 
+             const { blog: fetchedBlog } = response.data;
+ 
+             setBlog(fetchedBlog);
+             // console.log(fetchedBlogs);
+             
+             setLoading(false);
+         })
+    },[id])
+    
+    return {
+     loading,
+     blog
+    }
+ }
+
+
+export const useBlogs=(): { loading: boolean, blogs: Blog[] } =>{
    const [loading,setLoading]=useState(true);
-   const [blogs,setblogs]=useState([]);
-   
+   const [blogs,setBlogs]=useState([]);
+
    useEffect(()=>{
         axios.get(`${BACKEND_URl}/api/v1/blog/bulk`,{
             headers:{
-                Authorization:localStorage.getItem("token")
+                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
         })
         
-        .then(Response=>{
-            console.log("res"+Response.data);
-            setblogs(Response.data.blogs);
+        .then(response=>{
+
+            const { blogs: fetchedBlogs } = response.data;
+
+            setBlogs(fetchedBlogs);
+            // console.log(fetchedBlogs);
+            
             setLoading(false);
         })
    },[])
-
+   
    return {
     loading,
     blogs

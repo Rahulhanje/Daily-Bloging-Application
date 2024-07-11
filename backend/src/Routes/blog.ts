@@ -15,32 +15,32 @@ export const blogRoute = new Hono<{
 
 
 // @ts-ignore
-blogRoute.use(async (c, next) => {
-    const jwt=c.req.header("Authorization");
-    if(!jwt){
-        return c.json({
-            msg:"user Unauthorized"
-        });
-    } 
-    const token=jwt.split(" ")[1];
-    if (!token) {
-        return c.json({ msg: "User Unauthorized" });
-      }
-    try{const payload=await verify(token,c.env.JWT_SECRET);
-    if(!payload){
-        c.status(401);
-        return -c.json({
-            msg:"Unauthorized"
-        });
-    }
-    //@ts-ignore
-    c.set("userId",payload.id);
-    await next();
-}catch(e){
-    return c.json({msg:"Error "});
-}
+// blogRoute.use(async (c, next) => {
+//     const jwt=c.req.header("Authorization");
+//     if(!jwt){
+//         return c.json({
+//             msg:"user Unauthorized"
+//         });
+//     } 
+//     const token=jwt.split(" ")[1];
+//     if (!token) {
+//         return c.json({ msg: "User Unauthorized" });
+//       }
+//     try{const payload=await verify(token,c.env.JWT_SECRET);
+//     if(!payload){
+//         c.status(401);
+//         return -c.json({
+//             msg:"Unauthorized"
+//         });
+//     }
+//     //@ts-ignore
+//     c.set("userId",payload.id);
+//     await next();
+// }catch(e){
+//     return c.json({msg:"Error "});
+// }
 
-});
+// });
 
 blogRoute.post("/",async(c)=>{
     const prisma = new PrismaClient({
@@ -119,19 +119,38 @@ blogRoute.get('/bulk', async (c) => {
 });
 
 blogRoute.get('/:id', async (c) => {
-	const id = c.req.param('id');
+    const id = c.req.param('id');
     console.log(id);
-	const prisma = new PrismaClient({
-		datasourceUrl: c.env?.DATABASE_URL	,
-	}).$extends(withAccelerate());
-	
-	const post = await prisma.post.findUnique({
-		where: {
-			id
-		}
-	});
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate())
 
-	return c.json(post);
+    try {
+        const blog = await prisma.post.findFirst({
+            where: {
+                id: id
+            },
+            select: {
+                id: true,
+                title: true,
+                content: true,
+                author: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        })
+    
+        return c.json({
+            blog
+        });
+    } catch(e) {
+        c.status(411); // 4
+        return c.json({
+            message: "Error while fetching blog post"
+        });
+    }
 })
   
 blogRoute.delete("/delete-all-data", async (c) => {

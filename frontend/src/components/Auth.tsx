@@ -1,7 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { Link,useNavigate } from "react-router-dom"
 import { SignupType} from "@rahulhanje/zod-app";
-
 import { BACKEND_URl } from "../config";
 import axios from "axios";
 
@@ -18,10 +17,10 @@ async function sendRequest(){
     
     try{const response=await axios.post(`${BACKEND_URl}/api/v1/user/${type==='Signup'?"signup":"signin"}`,postInputs);
     const jwt=response.data;
-    console.log(jwt);
-    console.log(jwt.jwt)
+    // console.log(jwt);
+    // console.log(jwt.jwt)
     localStorage.setItem("token",jwt.jwt);
-    navigate("/blog");
+    navigate("/blogs");
 }
     catch(e){
 

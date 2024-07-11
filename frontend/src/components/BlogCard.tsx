@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 interface BlogCardprops {
+    id:string
     authorName: string;
     title: string;
     content: string;
@@ -6,33 +8,35 @@ interface BlogCardprops {
 }
 
 export const BlogCard = ({
+    id,
     authorName,
     title,
-    content, 
+    content,
     publishedDate,
 }: BlogCardprops) => {
     return (
-        <div className="flex justify-center pt-5 ">
-            <div className="flex max-w-2xl p-4 border-b-2 shadow-md	shadow-slate-200	 ">
+        <Link to={`/blog/${id}`}>
+        <div className="flex justify-center pt-5">
+        <div className="flex w-full sm:w-[32rem] md:w-[38rem] lg:w-[42rem] p-4 border-b-2 shadow-md shadow-slate-200  cursor-pointer">
+            <div>
                 <div>
-                    <div className="">
-                        <div className="flex items-center">
-                            <div >
-                                <Avatar name={authorName}></Avatar>
-                            </div>
-                            <div className="flex font-light items-center">
-                                <div className="pl-3  font-medium text-sm">{authorName}</div>
-
-                                <div className="pl-2  text-slate-900 font-semibold text-xs">{publishedDate}</div>
-                            </div>
+                    <div className="flex items-center">
+                        <div>
+                            <Avatar name={authorName}></Avatar>
+                        </div>
+                        <div className="flex font-light items-center">
+                            <div className="pl-3 font-medium text-sm">{authorName}</div>
+                            <div className="pl-2 text-slate-900 font-semibold text-xs">{publishedDate}</div>
                         </div>
                     </div>
-                    <div className="font-black  text-2xl py-3	text-slate-800 font-sans">{title}</div>
-                    <div className="font-serif font-light text-slate-700 pb-8">{`${content.slice(0, 200)} ....`}</div>
-                    <div className=" text-slate-600 text-sm">{`${Math.ceil(content.length / 200)} min Read`}</div>
                 </div>
+                <div className="font-black text-2xl py-3 text-slate-800 font-sans">{title}</div>
+                <div className="font-serif font-light text-slate-700 pb-8">{`${content.slice(0, 200)} ...`}</div>
+                <div className="text-slate-600 text-sm">{`${Math.ceil(content.length / 200)} min Read`}</div>
             </div>
         </div>
+    </div>
+    </Link>
     );
 };
 

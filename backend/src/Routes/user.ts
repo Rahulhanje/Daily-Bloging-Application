@@ -24,6 +24,7 @@ userRout.post('/signup', async(c) => {
       }
     })
     if(userAlready){
+      alert("user Already exist")
       return c.json({msg:"user already exist"});
     }
     const user = await prisma.user.create({
@@ -59,6 +60,7 @@ userRout.post('/signin', async (c) => {
 
   if (!user) {
       c.status(403);
+      alert("user not found" );
       return c.json({ error: "user not found" });
   }
 
