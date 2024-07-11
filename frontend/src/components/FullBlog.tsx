@@ -1,24 +1,54 @@
+import { Blog } from "../pages/blog";
+import { AppBar } from "./AppBar";
+import { Avatar } from "./BlogCard";
 
-interface FullBlogtype{
-    title:string;
-    publishedDate:string;
-    content:string;
-    authorName:string;
+export interface Blog {
+    "content": string;
+    "title": string;
+    "id": string;
+    "author": {
+        "name": string
+    }
 }
-// {title,publishedDate,content,authorName}:FullBlogtype
-export const FullBlog=()=>{
+export const FullBlog = ({ blog }: { blog: Blog }) => {
 
-    return(
-         <div>
-            <div>
-                <div>
-                   <div>{"title"}</div>
-                   <div>{"publishedDate"}
-                    <div>{"content"}</div>
-                   </div>
+    return (
+        
+        <div>
+            <AppBar name={blog.author.name}/>
+            <div className="flex justify-center">
+                <div className="grid md:grid-cols-12 px-10 w-full pt-200 max-w-screen-xl pt-12 grid-cols-1 overscroll-auto	">
+                    <div className="col-span-8">
+                        <div className="md:text-5xl md:font-extrabold text-2xl font-bold">
+                            {blog.title}
+                        </div>
+                        <div className="text-slate-500 pt-2">
+                            Post on 2nd December 2023
+                        </div>
+                        <div className="pt-4">
+                            {blog.content}
+                        </div>
+                    </div>
+                    <div className="col-span-4">
+                        <div className="text-slate-600 text-lg">
+                            Author
+                        </div>
+                        <div className="flex w-full">
+                            <div className="pr-4 flex flex-col justify-center">
+                                <Avatar name={blog.author.name || "Anonymous"} />
+                            </div>
+                            <div>
+                                <div className="text-xl font-bold">
+                                    {blog.author.name || "Anonymous"}
+                                </div>
+                                <div className="pt-2 text-slate-500">
+                                    Random catch phrase about the author's ability to grab the user's attention
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>{"authorName"}</div>
             </div>
-         </div>
+        </div>
     )
 }
