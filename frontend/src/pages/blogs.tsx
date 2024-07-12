@@ -14,7 +14,7 @@ export const Blogs = () => {
 
     return (
         <div >
-            <AppBar name="Ram"></AppBar>
+            <AppBar></AppBar>
             <div>
                 {blogs.map((blog) =>
                     <BlogCard

@@ -1,7 +1,7 @@
 import { Avatar } from "./BlogCard"
 import { Link } from "react-router-dom"
 
-export const AppBar = ({ name }: { name: string }) => {
+export const AppBar = () => {
     return (
         <div className="flex border-b justify-between px-10 py-4 shadow shadow-slate-400">
 
@@ -25,7 +25,7 @@ export const AppBar = ({ name }: { name: string }) => {
                     </div>
                 </Link>
                 <div className="pt-2">
-                    <Avatar name={name} />
+                    <Avatar  />
                 </div>
             </div>
         </div>

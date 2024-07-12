@@ -10,7 +10,7 @@ export const Publish = () => {
 
     return (
         <div>
-            <AppBar name="Rahul" />
+            <AppBar/>
             <div className="flex justify-center w-full pt-8">
                 <div className="max-w-screen-lg w-full">
                     <input

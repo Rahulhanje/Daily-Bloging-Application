@@ -15,7 +15,7 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
     return (
         
         <div>
-            <AppBar name={blog.author.name}/>
+            <AppBar/>
             <div className="flex justify-center">
                 <div className="grid md:grid-cols-12 px-10 w-full pt-200 max-w-screen-xl pt-12 grid-cols-1 overscroll-auto	">
                     <div className="col-span-8">
@@ -35,7 +35,7 @@ export const FullBlog = ({ blog }: { blog: Blog }) => {
                         </div>
                         <div className="flex w-full">
                             <div className="pr-4 flex flex-col justify-center">
-                                <Avatar name={blog.author.name || "Anonymous"} />
+                                <Avatar />
                             </div>
                             <div>
                                 <div className="text-xl font-bold">

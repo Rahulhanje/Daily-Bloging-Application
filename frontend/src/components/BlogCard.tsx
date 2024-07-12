@@ -22,7 +22,7 @@ export const BlogCard = ({
                 <div>
                     <div className="flex items-center">
                         <div>
-                            <Avatar name={authorName}></Avatar>
+                            <Avatar></Avatar>
                         </div>
                         <div className="flex font-light items-center">
                             <div className="pl-3 font-medium text-sm">{authorName}</div>
@@ -40,7 +40,7 @@ export const BlogCard = ({
     );
 };
 
-export function Avatar({ name }: { name: string }) {
+export function Avatar() {
     return (
         // <div className="relative inline-flex items-center justify-center w-8 h-8 overflow-hidden bg-slate-300 rounded-full dark:bg-gray-600">
         //     <span className="font-medium text-black-600 dark:text-gray-300">
