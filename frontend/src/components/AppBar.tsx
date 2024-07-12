@@ -12,7 +12,7 @@ export const AppBar = () => {
 
   <div className="flex justify-center">
     <Link to={`/signin`}>
-      <div className="pt-2">
+      <div className=" pt-3 md:pt-2 ">
         <button
           type="button"
           onClick={() => {
@@ -25,7 +25,7 @@ export const AppBar = () => {
       </div>
     </Link>
     <Link to={`/publish`}>
-      <div className="pt-2">
+      <div className="pt-3 md:pt-2">
         <button
           type="button"
           className="mr-4 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-3 py-1 md:px-5 md:py-2.5 text-center me-2 mb-2"
@@ -34,7 +34,7 @@ export const AppBar = () => {
         </button>
       </div>
     </Link>
-    <div className="pt-2  ">
+    <div className="pt-1 md:pt-2  ">
       <Avatar />
     </div>
   </div>
