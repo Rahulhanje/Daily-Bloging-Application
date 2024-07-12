@@ -15,9 +15,10 @@ export const BlogCard = ({
     publishedDate,
 }: BlogCardprops) => {
     return (
-        <Link to={`/blog/${id}`}>
+       
         <div className="flex justify-center pt-5">
-        <div className="flex w-full sm:w-[32rem] md:w-[38rem] lg:w-[42rem] p-4 border-b-2 shadow-md shadow-slate-200  cursor-pointer">
+        <div className="flex w-full sm:w-[32rem] md:w-[38rem] lg:w-[42rem] p-4 border-b-2 shadow-md shadow-slate-200 cursor-pointer">
+        <Link to={`/blog/${id}`}>
             <div>
                 <div>
                     <div className="flex items-center">
@@ -34,19 +35,15 @@ export const BlogCard = ({
                 <div className="font-serif font-light text-slate-700 pb-8">{`${content.slice(0, 200)} ...`}</div>
                 <div className="text-slate-600 text-sm">{`${Math.ceil(content.length / 200)} min Read`}</div>
             </div>
+            </Link>
         </div>
     </div>
-    </Link>
+    
     );
 };
 
 export function Avatar() {
     return (
-        // <div className="relative inline-flex items-center justify-center w-8 h-8 overflow-hidden bg-slate-300 rounded-full dark:bg-gray-600">
-        //     <span className="font-medium text-black-600 dark:text-gray-300">
-        //         {name[0]}
-        //     </span>
-        // </div>
         <div className="relative inline-flex flex-col justify-center ">
         <div className="relative inline-flex w-10 h-10 md:w-10 md:h-10 flex-col  overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
         <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
