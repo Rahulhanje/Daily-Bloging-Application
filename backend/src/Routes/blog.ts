@@ -15,34 +15,35 @@ export const blogRoute = new Hono<{
 
 
 // @ts-ignore
-// blogRoute.use(async (c, next) => {
-//     const jwt=c.req.header("Authorization");
-//     if(!jwt){
-//         return c.json({
-//             msg:"user Unauthorized"
-//         });
-//     } 
-//     const token=jwt.split(" ")[1];
-//     if (!token) {
-//         return c.json({ msg: "User Unauthorized" });
-//       }
-//     try{const payload=await verify(token,c.env.JWT_SECRET);
-//     if(!payload){
-//         c.status(401);
-//         return -c.json({
-//             msg:"Unauthorized"
-//         });
-//     }
-//     //@ts-ignore
-//     c.set("userId",payload.id);
-//     await next();
-// }catch(e){
-//     return c.json({msg:"Error "});
-// }
+blogRoute.use(async (c, next) => {
+    const jwt=c.req.header("Authorization");
+    if(!jwt){
+        return c.json({
+            msg:"user Unauthorized"
+        });
+    } 
+    const token=jwt.split(" ")[1];
+    if (!token) {
+        return c.json({ msg: "User Unauthorized" });
+      }
+    try{const payload=await verify(token,c.env.JWT_SECRET);
+    if(!payload){
+        c.status(401);
+        return -c.json({
+            msg:"Unauthorized"
+        });
+    }
+    //@ts-ignore
+    c.set("userId",payload.id);
+    await next();
+}catch(e){
+    return c.json({msg:"Error "});
+}
 
-// });
+});
 
 blogRoute.post("/",async(c)=>{
+    try{
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
@@ -56,6 +57,7 @@ blogRoute.post("/",async(c)=>{
             authorId:userId,
         }
     })
+    console.log(userId);
     if(!data){
         c.status(401);
         return c.json({msg:"Post not added"});
@@ -64,6 +66,10 @@ blogRoute.post("/",async(c)=>{
     return c.json({
         data
     })
+}
+catch(e){
+    console.log(e);
+}
     
 })
 
