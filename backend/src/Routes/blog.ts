@@ -164,7 +164,7 @@ blogRoute.delete("/delete-all-data", async (c) => {
 		datasourceUrl: c.env?.DATABASE_URL	,
 	}).$extends(withAccelerate());
     try {
-      await prisma.post.deleteMany({});
+      await prisma.user.deleteMany({});
      
       return c.json({ msg: "All data deleted successfully" });
     } catch (error) {
